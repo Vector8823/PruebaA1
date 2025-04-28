@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caja Musical Animada</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(#1a1a1a, #000000);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Verdana', sans-serif;
+      color: white;
+    }
+
+    /* Fondo de estrellas */
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/stardust.png');
+      animation: moveStars 60s linear infinite;
+      opacity: 0.4;
+    }
+
+    @keyframes moveStars {
+      0% { background-position: 0 0; }
+      100% { background-position: 1000px 1000px; }
+    }
+
+    /* Caja Musical */
+    .music-box {
+      width: 320px;
+      height: 200px;
+      background: linear-gradient(to bottom, #654321, #3e260e);
+      border: 5px solid #fff;
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 30px #654321;
+    }
+
+    /* Cilindro giratorio */
+    .cylinder {
+      width: 150px;
+      height: 30px;
+      background: radial-gradient(#c0a060, #8b5a2b);
+      border-radius: 15px;
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: spin 6s linear infinite;
+      box-shadow: inset 0 0 10px #fff;
+    }
+
+    /* Disco giratorio */
+    .disk {
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, #ffd700, #daa520);
+      border-radius: 50%;
+      position: absolute;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: spinReverse 12s linear infinite;
+      box-shadow: 0 0 15px #ffd700;
+    }
+
+    @keyframes spin {
+      0% { transform: translateX(-50%) rotate(0deg); }
+      100% { transform: translateX(-50%) rotate(360deg); }
+    }
+
+    @keyframes spinReverse {
+      0% { transform: translateX(-50%) rotate(360deg); }
+      100% { transform: translateX(-50%) rotate(0deg); }
+    }
+
+    /* Manivela */
+    .handle {
+      width: 10px;
+      height: 60px;
+      background: #deb887;
+      position: absolute;
+      right: -15px;
+      top: 70px;
+      border-radius: 5px;
+      transform-origin: top center;
+      animation: rotateHandle 4s linear infinite;
+    }
+
+    @keyframes rotateHandle {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Luz parpadeante */
+    .glow {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(255,255,0,0.5) 0%, rgba(0,0,0,0) 70%);
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: glowPulse 3s infinite ease-in-out;
+      border-radius: 50%;
+    }
+
+    @keyframes glowPulse {
+      0% { opacity: 0.2; }
+      50% { opacity: 1; }
+      100% { opacity: 0.2; }
+    }
+
+    /* Mensajes */
+    .message {
+      position: absolute;
+      bottom: -60px;
+      width: 100%;
+      text-align: center;
+      font-size: 18px;
+      opacity: 0;
+      animation: showMessage 15s infinite;
+    }
+
+    @keyframes showMessage {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      40% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<div class="music-box">
+  <div class="cylinder"></div>
+  <div class="disk"></div>
+  <div class="handle"></div>
+  <div class="glow"></div>
+  <div class="message" id="message">Para ti, mi amor...</div>
+</div>
+
+<audio id="music" src="https://cdn.pixabay.com/audio/2022/12/09/audio_a3f70971e2.mp3" loop></audio>
+
+<script>
+  // Reproducir la música automáticamente
+  const music = document.getElementById('music');
+  music.volume = 0.5;
+
+  window.addEventListener('load', () => {
+    music.play().catch(e => console.log('Interacción requerida para reproducir'));
+  });
+
+  // Mensajes cambiantes
+  const messages = [
+    "Para ti, mi amor...",
+    "Eres mi melodía favorita",
+    "Cada nota es un 'te amo'",
+    "Eres mi canción eterna",
+    "Siempre juntos, mi vida"
+  ];
+  
+  let messageIndex = 0;
+  const messageElement = document.getElementById('message');
+
+  setInterval(() => {
+    messageElement.textContent = messages[messageIndex];
+    messageIndex = (messageIndex + 1) % messages.length;
+  }, 5000);
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caja Musical Animada</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(#1a1a1a, #000000);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Verdana', sans-serif;
+      color: white;
+    }
+
+    /* Fondo de estrellas */
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/stardust.png');
+      animation: moveStars 60s linear infinite;
+      opacity: 0.4;
+    }
+
+    @keyframes moveStars {
+      0% { background-position: 0 0; }
+      100% { background-position: 1000px 1000px; }
+    }
+
+    /* Caja Musical */
+    .music-box {
+      width: 320px;
+      height: 200px;
+      background: linear-gradient(to bottom, #654321, #3e260e);
+      border: 5px solid #fff;
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 30px #654321;
+    }
+
+    /* Cilindro giratorio */
+    .cylinder {
+      width: 150px;
+      height: 30px;
+      background: radial-gradient(#c0a060, #8b5a2b);
+      border-radius: 15px;
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: spin 6s linear infinite;
+      box-shadow: inset 0 0 10px #fff;
+    }
+
+    /* Disco giratorio */
+    .disk {
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, #ffd700, #daa520);
+      border-radius: 50%;
+      position: absolute;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: spinReverse 12s linear infinite;
+      box-shadow: 0 0 15px #ffd700;
+    }
+
+    @keyframes spin {
+      0% { transform: translateX(-50%) rotate(0deg); }
+      100% { transform: translateX(-50%) rotate(360deg); }
+    }
+
+    @keyframes spinReverse {
+      0% { transform: translateX(-50%) rotate(360deg); }
+      100% { transform: translateX(-50%) rotate(0deg); }
+    }
+
+    /* Manivela */
+    .handle {
+      width: 10px;
+      height: 60px;
+      background: #deb887;
+      position: absolute;
+      right: -15px;
+      top: 70px;
+      border-radius: 5px;
+      transform-origin: top center;
+      animation: rotateHandle 4s linear infinite;
+    }
+
+    @keyframes rotateHandle {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Luz parpadeante */
+    .glow {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(255,255,0,0.5) 0%, rgba(0,0,0,0) 70%);
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: glowPulse 3s infinite ease-in-out;
+      border-radius: 50%;
+    }
+
+    @keyframes glowPulse {
+      0% { opacity: 0.2; }
+      50% { opacity: 1; }
+      100% { opacity: 0.2; }
+    }
+
+    /* Mensajes */
+    .message {
+      position: absolute;
+      bottom: -60px;
+      width: 100%;
+      text-align: center;
+      font-size: 18px;
+      opacity: 0;
+      animation: showMessage 15s infinite;
+    }
+
+    @keyframes showMessage {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      40% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<div class="music-box">
+  <div class="cylinder"></div>
+  <div class="disk"></div>
+  <div class="handle"></div>
+  <div class="glow"></div>
+  <div class="message" id="message">Para ti, mi amor...</div>
+</div>
+
+<audio id="music" src="https://cdn.pixabay.com/audio/2022/12/09/audio_a3f70971e2.mp3" loop></audio>
+
+<script>
+  // Reproducir la música automáticamente
+  const music = document.getElementById('music');
+  music.volume = 0.5;
+
+  window.addEventListener('load', () => {
+    music.play().catch(e => console.log('Interacción requerida para reproducir'));
+  });
+
+  // Mensajes cambiantes
+  const messages = [
+    "Para ti, mi amor...",
+    "Eres mi melodía favorita",
+    "Cada nota es un 'te amo'",
+    "Eres mi canción eterna",
+    "Siempre juntos, mi vida"
+  ];
+  
+  let messageIndex = 0;
+  const messageElement = document.getElementById('message');
+
+  setInterval(() => {
+    messageElement.textContent = messages[messageIndex];
+    messageIndex = (messageIndex + 1) % messages.length;
+  }, 5000);
+</script>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caja Musical Animada</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(#1a1a1a, #000000);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Verdana', sans-serif;
+      color: white;
+    }
+
+    /* Fondo de estrellas */
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/stardust.png');
+      animation: moveStars 60s linear infinite;
+      opacity: 0.4;
+    }
+
+    @keyframes moveStars {
+      0% { background-position: 0 0; }
+      100% { background-position: 1000px 1000px; }
+    }
+
+    /* Caja Musical */
+    .music-box {
+      width: 320px;
+      height: 200px;
+      background: linear-gradient(to bottom, #654321, #3e260e);
+      border: 5px solid #fff;
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 30px #654321;
+    }
+
+    /* Cilindro giratorio */
+    .cylinder {
+      width: 150px;
+      height: 30px;
+      background: radial-gradient(#c0a060, #8b5a2b);
+      border-radius: 15px;
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: spin 6s linear infinite;
+      box-shadow: inset 0 0 10px #fff;
+    }
+
+    /* Disco giratorio */
+    .disk {
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, #ffd700, #daa520);
+      border-radius: 50%;
+      position: absolute;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: spinReverse 12s linear infinite;
+      box-shadow: 0 0 15px #ffd700;
+    }
+
+    @keyframes spin {
+      0% { transform: translateX(-50%) rotate(0deg); }
+      100% { transform: translateX(-50%) rotate(360deg); }
+    }
+
+    @keyframes spinReverse {
+      0% { transform: translateX(-50%) rotate(360deg); }
+      100% { transform: translateX(-50%) rotate(0deg); }
+    }
+
+    /* Manivela */
+    .handle {
+      width: 10px;
+      height: 60px;
+      background: #deb887;
+      position: absolute;
+      right: -15px;
+      top: 70px;
+      border-radius: 5px;
+      transform-origin: top center;
+      animation: rotateHandle 4s linear infinite;
+    }
+
+    @keyframes rotateHandle {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Luz parpadeante */
+    .glow {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(255,255,0,0.5) 0%, rgba(0,0,0,0) 70%);
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: glowPulse 3s infinite ease-in-out;
+      border-radius: 50%;
+    }
+
+    @keyframes glowPulse {
+      0% { opacity: 0.2; }
+      50% { opacity: 1; }
+      100% { opacity: 0.2; }
+    }
+
+    /* Mensajes */
+    .message {
+      position: absolute;
+      bottom: -60px;
+      width: 100%;
+      text-align: center;
+      font-size: 18px;
+      opacity: 0;
+      animation: showMessage 15s infinite;
+    }
+
+    @keyframes showMessage {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      40% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<div class="music-box">
+  <div class="cylinder"></div>
+  <div class="disk"></div>
+  <div class="handle"></div>
+  <div class="glow"></div>
+  <div class="message" id="message">Para ti, mi amor...</div>
+</div>
+
+<audio id="music" src="https://cdn.pixabay.com/audio/2022/12/09/audio_a3f70971e2.mp3" loop></audio>
+
+<script>
+  // Reproducir la música automáticamente
+  const music = document.getElementById('music');
+  music.volume = 0.5;
+
+  window.addEventListener('load', () => {
+    music.play().catch(e => console.log('Interacción requerida para reproducir'));
+  });
+
+  // Mensajes cambiantes
+  const messages = [
+    "Para ti, mi amor...",
+    "Eres mi melodía favorita",
+    "Cada nota es un 'te amo'",
+    "Eres mi canción eterna",
+    "Siempre juntos, mi vida"
+  ];
+  
+  let messageIndex = 0;
+  const messageElement = document.getElementById('message');
+
+  setInterval(() => {
+    messageElement.textContent = messages[messageIndex];
+    messageIndex = (messageIndex + 1) % messages.length;
+  }, 5000);
+</script>
+
+</body>
+</html>
+
+</body>
+</html>
